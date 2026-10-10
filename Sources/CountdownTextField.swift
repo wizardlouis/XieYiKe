@@ -1,6 +1,6 @@
 import Cocoa
 
-/// Draw the outline with the glyphs, rather than relying on the lifetime of
+/// Draw the original soft shadow with the glyphs, rather than relying on the lifetime of
 /// NSTextField's backing layer when its text, color or font changes.
 final class CountdownTextField: NSTextField {
     private var displayedText: String?
@@ -32,10 +32,6 @@ final class CountdownTextField: NSTextField {
         let value = NSAttributedString(string: text, attributes: [
             .font: font,
             .foregroundColor: color,
-            .strokeColor: NSColor.black,
-            // Negative values draw both the fill and the stroke; units are
-            // a percentage of the font size, so the edge scales with the text.
-            .strokeWidth: -1.5,
             .shadow: shadow,
             .paragraphStyle: paragraph
         ])

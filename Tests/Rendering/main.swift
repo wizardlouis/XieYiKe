@@ -24,7 +24,7 @@ func render(background: NSColor) -> NSBitmapImageRep {
     return bitmap
 }
 func checkContrast(_ name: String) {
-    // On white, white glyphs disappear without their dark edge; on black the
+    // On white, white glyphs disappear without their soft shadow; on black the
     // white fill must remain visible. These check the actual AppKit cell raster.
     let onWhite = render(background: .white)
     let onBlack = render(background: .black)
@@ -38,11 +38,13 @@ func checkContrast(_ name: String) {
             if min(bright.redComponent, bright.greenComponent, bright.blueComponent) > 0.85 { brightPixels += 1 }
         }
     }
-    check(darkPixels > 150, "\(name): visible dark edge on white")
+    check(darkPixels > 150, "\(name): visible soft shadow on white")
     check(brightPixels > 150, "\(name): visible white fill on black")
 }
 field.update(text: "40:00", font: large, color: .white)
 checkContrast("initial")
+check(field.attributedStringValue.attribute(.strokeWidth, at: 0, effectiveRange: nil) == nil,
+      "original appearance uses no hard text outline")
 let initialValue = field.attributedStringValue
 field.update(text: "40:00", font: large, color: .white)
 check(field.attributedStringValue === initialValue, "unchanged timer tick avoids text invalidation")
@@ -65,7 +67,7 @@ if CommandLine.arguments.count > 1 {
     try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
     for (name, color) in [("white", NSColor.white), ("black", NSColor.black)] {
         try render(background: color).representation(using: .png, properties: [:])!
-            .write(to: output.appendingPathComponent("outline-\(name).png"))
+            .write(to: output.appendingPathComponent("shadow-\(name).png"))
     }
 }
 print("Passed \(checks) text-rendering checks")
