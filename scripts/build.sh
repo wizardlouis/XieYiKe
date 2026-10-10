@@ -5,7 +5,7 @@ mkdir -p .build dist
 app="dist/歇一刻.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 for arch in arm64 x86_64; do
-    xcrun swiftc -O -target "$arch-apple-macosx12.0" Sources/Countdown.swift Sources/main.swift \
+    xcrun swiftc -O -target "$arch-apple-macosx12.0" Sources/Countdown.swift Sources/CountdownTextField.swift Sources/main.swift \
         -framework Cocoa -o ".build/XieYiKe-$arch"
 done
 xcrun lipo -create .build/XieYiKe-arm64 .build/XieYiKe-x86_64 -output "$app/Contents/MacOS/XieYiKe"

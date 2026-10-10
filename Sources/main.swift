@@ -15,7 +15,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     var clock = Countdown()
     var timer: Timer?
     var panel: OverlayPanel!
-    var timeLabel: NSTextField!
+    var timeLabel: CountdownTextField!
     var startButton: NSButton!
     var controls: NSStackView!
     var unlockPanel: OverlayPanel!
@@ -148,15 +148,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         unlock.frame = NSRect(x: 0, y: 0, width: 28, height: 28)
         unlockPanel.contentView?.addSubview(unlock)
         panel.delegate = self
-        timeLabel = label("20:00", size: 62)
-        timeLabel.font = .monospacedDigitSystemFont(ofSize: 62, weight: .semibold)
-        timeLabel.alignment = .center
-        timeLabel.frame = NSRect(x: 0, y: 2, width: 340, height: 78)
-        timeLabel.wantsLayer = true
-        timeLabel.layer?.shadowColor = NSColor.black.cgColor
-        timeLabel.layer?.shadowOpacity = 0.85
-        timeLabel.layer?.shadowRadius = 4
-        timeLabel.layer?.shadowOffset = CGSize(width: 0, height: -1)
+        timeLabel = CountdownTextField(frame: NSRect(x: 0, y: 2, width: 340, height: 78))
         root.addSubview(timeLabel)
         positionOverlay()
         showOverlay()
@@ -225,7 +217,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     func refresh() {
         let seconds = Int(ceil(clock.remaining))
         let text = formattedTime(clock.remaining, duration: clock.duration)
-        timeLabel.stringValue = text
         let font = NSFont.monospacedDigitSystemFont(ofSize: clock.duration >= 3600 ? 46 : 62, weight: .semibold)
         let neededWidth = max(340, ceil((formattedTime(clock.duration, duration: clock.duration) as NSString).size(withAttributes: [.font: font]).width) + 32)
         let maxWidth = (panel.screen ?? NSScreen.main)?.visibleFrame.width ?? 1000
@@ -240,8 +231,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
             controls.frame.origin.x = (width - controls.frame.width) / 2
             if isLocked { positionUnlock() }
         }
-        timeLabel.font = fittedFont
-        timeLabel.textColor = seconds == 0 ? .systemOrange : .white
+        timeLabel.update(text: text, font: fittedFont, color: seconds == 0 ? .systemOrange : .white)
         let running = clock.deadline != nil
         let title = running ? "暂停" : "开始"
         startButton.image = NSImage(systemSymbolName: running ? "pause.fill" : "play.fill", accessibilityDescription: title)

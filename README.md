@@ -30,11 +30,11 @@
 
 要求 **macOS 12 Monterey 或更新版本**。Universal 安装包同时包含 Apple 芯片和 Intel 版本。实际交互已在 Apple 芯片的 macOS 26.2 上验证；不代表所有旧版系统或 Intel 实机都已完成测试。
 
-1. 在 [Releases](https://github.com/wizardlouis/XieYiKe/releases/latest) 下载 `XieYiKe-1.0.0-macOS-universal.dmg`。
+1. 在 [Releases](https://github.com/wizardlouis/XieYiKe/releases/latest) 下载 `XieYiKe-1.0.1-macOS-universal.dmg`。
 2. 打开安装包，将“歇一刻”拖到 Applications 文件夹，再从“应用程序”打开。
 3. 应用默认不显示 Dock 图标，请在屏幕顶部菜单栏寻找闹钟图标。
 
-**签名状态：v1.0.0 仅使用 ad-hoc 本地签名，未使用 Apple Developer ID 签名，也未经过 Apple 公证。** 首次打开可能被 macOS 拦截。仅当你确认下载来自本仓库并信任该应用时，按 [Apple 官方说明](https://support.apple.com/102445) 在“系统设置 → 隐私与安全性”中查看“仍要打开”。无需关闭 Gatekeeper 或系统安全保护；受管理的电脑可能不允许用户放行。
+**签名状态：v1.0.1 仅使用 ad-hoc 本地签名，未使用 Apple Developer ID 签名，也未经过 Apple 公证。** 首次打开可能被 macOS 拦截。仅当你确认下载来自本仓库并信任该应用时，按 [Apple 官方说明](https://support.apple.com/102445) 在“系统设置 → 隐私与安全性”中查看“仍要打开”。无需关闭 Gatekeeper 或系统安全保护；受管理的电脑可能不允许用户放行。
 
 ZIP 包提供同一应用的压缩版本；`SHA256SUMS.txt` 提供下载校验值。
 
